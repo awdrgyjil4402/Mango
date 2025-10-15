@@ -11,8 +11,9 @@ screen = py.display.set_mode(SIZE)
 clock = py.time.Clock()
 
 # Initialize global variables
-rect_x = 100
-rect_y = 100
+player_x = 100
+player_y = 100
+player_speed = 20
 
 running = True
 while running:
@@ -24,14 +25,14 @@ while running:
     # GAME LOGIC
     keys = py.key.get_pressed()
     if keys[py.K_a]:
-        rect_x -= 5
+        player_x -= player_speed
     if keys[py.K_d]:
-        rect_x += 5
+        player_x += player_speed
 
     # RENDERING
     screen.fill((255, 255, 255))  # always the first drawing command
 
-    py.draw.rect(screen, (0,0,200), (rect_x, rect_y, 50, 100))
+    py.draw.rect(screen, (0,0,200), (player_x, player_y, 50, 100))
 
     # Finish the game loop DO NOT TOUCH
     py.display.flip()
