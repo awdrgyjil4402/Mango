@@ -1,36 +1,38 @@
-import pygame as py
+import pygame as py, time
 import player
 
-# Initialize Pygame
+# Initialize Pygame, other libraries, variables
 py.init()
 
-WIDTH = 640
-HEIGHT = 480
+WIDTH = 1080
+HEIGHT = 720
 SIZE = (WIDTH, HEIGHT)
 
 screen = py.display.set_mode(SIZE)
 clock = py.time.Clock()
 player = player.Player()
 
-# Initialize global variables
+previous_frame_time = time.time()
 
 running = True
 while running:
+    # Get the delta time
+    dt = time.time() - previous_frame_time
+    previous_frame_time = time.time()
+
     # EVENT HANDLING
     for event in py.event.get():
         if event.type == py.QUIT:
             running = False    
 
     # GAME LOGIC
-    player.move()
+    player.move(dt)
 
     # RENDERING
     screen.fill((255, 255, 255))  # always the first drawing command
-
     player.draw(screen)
 
     # Finish the game loop DO NOT TOUCH
     py.display.flip()
-    clock.tick(30)
 
 py.quit()
