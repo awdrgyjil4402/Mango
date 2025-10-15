@@ -1,4 +1,5 @@
 import pygame as py
+import player
 
 # Initialize Pygame
 py.init()
@@ -9,11 +10,9 @@ SIZE = (WIDTH, HEIGHT)
 
 screen = py.display.set_mode(SIZE)
 clock = py.time.Clock()
+player = player.Player()
 
 # Initialize global variables
-player_x = 100
-player_y = 100
-player_speed = 20
 
 running = True
 while running:
@@ -23,16 +22,12 @@ while running:
             running = False    
 
     # GAME LOGIC
-    keys = py.key.get_pressed()
-    if keys[py.K_a]:
-        player_x -= player_speed
-    if keys[py.K_d]:
-        player_x += player_speed
+    player.move()
 
     # RENDERING
     screen.fill((255, 255, 255))  # always the first drawing command
 
-    py.draw.rect(screen, (0,0,200), (player_x, player_y, 50, 100))
+    player.draw(screen)
 
     # Finish the game loop DO NOT TOUCH
     py.display.flip()
