@@ -27,6 +27,7 @@ while running:
 
     # GAME LOGIC
     player.move(dt)
+    player.physx(dt)
 
     # RENDERING
     screen.fill((255, 255, 255))  # always the first drawing command
