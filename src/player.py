@@ -7,7 +7,8 @@ class Player:
         self.pos_y = self.rect.y
         self.vel_x = 0
         self.vel_y = 0
-        self.speed = 500
+        self.acc = 200
+        self.speed = 400
         self.jump_acc = -1500
         self.gravity = 5000
         self.on_ground = False
@@ -15,9 +16,13 @@ class Player:
     def move(self, dt):
         keys = py.key.get_pressed()
         if keys[py.K_a]:
-            self.pos_x -= self.speed * dt
+            if abs(self.vel_x) <= self.speed:
+                self.vel_x -= self.acc
+            self.pos_x -= self.vel_x * dt
         if keys[py.K_d]:
-            self.pos_x += self.speed * dt
+            if abs(self.vel_x) <= self.speed:
+                self.vel_x += self.acc
+            self.pos_x += self.vel_x * dt
         if keys[py.K_SPACE] and self.on_ground:
             self.vel_y = self.jump_acc
             self.on_ground = False
@@ -42,6 +47,7 @@ class Player:
                 self.rect.top = other.bottom
                 self.pos_y = self.rect.y
                 self.vel_y = 0
+
 
     def draw(self, screen):
         py.draw.rect(screen, (0, 0, 200), self.rect)
