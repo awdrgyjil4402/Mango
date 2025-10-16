@@ -1,5 +1,5 @@
 import pygame as py, time
-import player
+import player, level
 
 # Initialize Pygame, other libraries, variables
 py.init()
@@ -10,7 +10,9 @@ SIZE = (WIDTH, HEIGHT)
 
 screen = py.display.set_mode(SIZE)
 clock = py.time.Clock()
+
 player = player.Player()
+level = level.Level()
 
 previous_frame_time = time.time()
 
@@ -26,12 +28,17 @@ while running:
             running = False    
 
     # GAME LOGIC
-    player.move(dt)
+
     player.physx(dt)
+    player.collide(level.rect_1)
+    player.collide(level.rect_2)
+    player.collide(level.rect_3)
+    player.move(dt)
 
     # RENDERING
     screen.fill((255, 255, 255))  # always the first drawing command
     player.draw(screen)
+    level.draw(screen)
 
     # Finish the game loop DO NOT TOUCH
     py.display.flip()
