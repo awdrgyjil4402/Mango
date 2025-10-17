@@ -30,9 +30,7 @@ while running:
     # GAME LOGIC
 
     player.physx(dt)
-    player.collide(level.rect_1)
-    player.collide(level.rect_2)
-    player.collide(level.rect_3)
+    player.collide(level.level_rects)
     player.move(dt)
 
     # RENDERING
